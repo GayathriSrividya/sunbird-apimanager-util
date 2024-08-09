@@ -32,8 +32,7 @@ jobs:
 
       - name: Upgrade Gradle for JDK 17
         run: |
-          # Example command to upgrade Gradle; adjust as needed
-          ./gradlew wrapper --gradle-version <new-version> --distribution-type all
+          ./gradlew wrapper --gradle-version 7.2 --distribution-type all
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4

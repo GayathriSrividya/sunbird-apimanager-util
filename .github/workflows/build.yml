@@ -30,8 +30,8 @@ jobs:
 
       - name: Run build
         run: |
-        gradle -v
-        ./gradlew build
+          gradle -v
+          ./gradlew build
             
       # - name: Publish Docker Image
       #   run: |

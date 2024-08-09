@@ -24,10 +24,10 @@ jobs:
       - name: Install Gradle
         run: |
           sudo rm -rf /usr/bin/gradle
-          wget https://services.gradle.org/distributions/gradle-5.0-bin.zip
+          wget https://services.gradle.org/distributions/gradle-4.8.1-bin.zip
           sudo mkdir /opt/gradle
-          sudo unzip -d /opt/gradle gradle-5.0-bin.zip
-          export PATH=$PATH:/opt/gradle/gradle-5.0/bin
+          sudo unzip -d /opt/gradle gradle-4.8.1-bin.zip
+          export PATH=$PATH:/opt/gradle/gradle-4.8.1/bin
           which gradle
           gradle -v
       - name: Install jq

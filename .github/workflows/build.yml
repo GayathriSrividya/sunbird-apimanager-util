@@ -20,7 +20,15 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-
+    # install gradle 4.8.1
+      - name: Install Gradle
+        run: |
+          wget https://services.gradle.org/distributions/gradle-4.8.1-bin.zip
+          sudo mkdir /opt/gradle
+          sudo unzip -d /opt/gradle gradle-4.8.1-bin.zip
+          export PATH=$PATH:/opt/gradle/gradle-4.8.1/bin
+          gradle -v
+          
       - name: Install jq
         run: sudo apt-get install -y jq
 

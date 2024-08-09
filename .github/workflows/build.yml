@@ -20,7 +20,7 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-          
+
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
@@ -29,7 +29,9 @@ jobs:
           build-scan-terms-of-use-agree: "yes"
 
       - name: Run build
-        run: ./gradlew build
+        run: |
+        gradle -v
+        ./gradlew build
             
       # - name: Publish Docker Image
       #   run: |

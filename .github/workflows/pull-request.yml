@@ -1,4 +1,4 @@
-name: Test and sonar
+name: Test and Sonar
 
 on:
   pull_request:
@@ -25,23 +25,24 @@ jobs:
           build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
           build-scan-terms-of-use-agree: "yes"
 
-      - name: Run build
+      - name: Run build with JDK 11
         run: |
           gradle -v
           ./gradlew build
-       
+
+      - name: Upgrade Gradle for JDK 17
+        run: |
+          # Example command to upgrade Gradle; adjust as needed
+          ./gradlew wrapper --gradle-version <new-version> --distribution-type all
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-     
-      - name: Run SonarQube analysis with gradle
+      - name: Run SonarQube analysis with JDK 17
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ./gradlew build sonarqube -Dsonar.organization=gayathrisrividya -Dsonar.projectKey=GayathriSrividya_sunbird-apimanager-util -Dsonar.host.url=https://sonarcloud.io -Dsonar.junit.reportPaths=/home/runner/work/sunbird-apimanager-util/sunbird-apimanager-util/build/test-results/test/*.xml --stacktrace
-
-
-
+          ./gradlew build sonarqube -Dsonar.java.source=17 -Dsonar.organization=gayathrisrividya -Dsonar.projectKey=GayathriSrividya_sunbird-apimanager-util -Dsonar.host.url=https://sonarcloud.io -Dsonar.junit.reportPaths=build/test-results/test/*.xml --stacktrace

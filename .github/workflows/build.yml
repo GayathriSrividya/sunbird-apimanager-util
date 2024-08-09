@@ -30,9 +30,7 @@ jobs:
           export PATH=$PATH:/opt/gradle/gradle-4.8.1/bin
           which gradle
           gradle -v
-      - name: Install jq
-        run: sudo apt-get install -y jq
-
+  
       - name: Run Build Script
         run: |
           gradle -v

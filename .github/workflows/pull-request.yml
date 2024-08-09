@@ -19,16 +19,16 @@ jobs:
           distribution: 'adopt'
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+        uses: gradle/gradle-build-action@v3
         with:
+          gradle-version: 7.5
           build-scan-publish: true
           build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
           build-scan-terms-of-use-agree: "yes"
 
       - name: Run build
         run: |
-          gradle -v
-          ./gradlew build
+          ./gradlew clean build --no-daemon --info
        
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -36,12 +36,8 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-     
       - name: Run SonarQube analysis with gradle
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ./gradlew build sonarqube -Dsonar.organization=gayathrisrividya -Dsonar.projectKey=GayathriSrividya_sunbird-apimanager-util -Dsonar.host.url=https://sonarcloud.io -Dsonar.junit.reportPaths=/home/runner/work/sunbird-apimanager-util/sunbird-apimanager-util/build/test-results/test/*.xml
-
-
-
+          ./gradlew sonarqube -Dsonar.organization=gayathrisrividya -Dsonar.projectKey=GayathriSrividya_sunbird-apimanager-util -Dsonar.host.url=https://sonarcloud.io -Dsonar.junit.reportPaths=/home/runner/work/sunbird-apimanager-util/sunbird-apimanager-util/build/test-results/test/*.xml

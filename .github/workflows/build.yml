@@ -20,19 +20,17 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-    # install gradle 5.0
-      - name: Install Gradle
-        run: |
-          sudo rm -rf /usr/bin/gradle
-          wget https://services.gradle.org/distributions/gradle-4.8.1-bin.zip
-          sudo mkdir /opt/gradle
-          sudo unzip -d /opt/gradle gradle-4.8.1-bin.zip
-          export PATH=$PATH:/opt/gradle/gradle-4.8.1/bin
-          which gradle
-          gradle -v
-          chmod +x ./build.sh
-          ./build.sh
           
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          build-scan-publish: true
+          build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+          build-scan-terms-of-use-agree: "yes"
+
+      - name: Run build
+        run: ./gradlew build
+            
       # - name: Publish Docker Image
       #   run: |
       #     echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin

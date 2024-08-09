@@ -41,7 +41,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-           mvn -B verify -DskipTests org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=GayathriSrividya_sunbird-apimanager-util -Dsonar.organization=gayathrisrividya -Dsonar.host.url=https://sonarcloud.io -Dsonar.junit.reportPaths=/home/runner/work/sunbird-apimanager-util/sunbird-apimanager-util/build/test-results/test/*.xml
+           mvn -B verify -DskipTests sonar:sonar -Dsonar.projectKey=GayathriSrividya_sunbird-apimanager-util -Dsonar.organization=gayathrisrividya -Dsonar.host.url=https://sonarcloud.io -Dsonar.junit.reportPaths=/home/runner/work/sunbird-apimanager-util/sunbird-apimanager-util/build/test-results/test/*.xml
 
 
 

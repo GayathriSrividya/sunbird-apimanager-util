@@ -5,7 +5,7 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  run_test_cases:
+  build:
     runs-on: ubuntu-20.04
 
     steps:
@@ -21,26 +21,39 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
+          gradle-version: '8.2' # Example of an updated Gradle version
           build-scan-publish: true
           build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
           build-scan-terms-of-use-agree: "yes"
 
       - name: Run build with JDK 11
         run: |
-          gradle -v
+          ./gradlew wrapper --gradle-version 8.2 --distribution-type all
           ./gradlew build
 
-      - name: Upgrade Gradle for JDK 17
-        run: |
-          ./gradlew wrapper --gradle-version 7.2 --distribution-type all
+  sonarqube-analysis:
+    runs-on: ubuntu-20.04
+    needs: build
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          java-version: '11'
+          distribution: 'adopt'
 
-      - name: Run SonarQube analysis with JDK 17
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.2' # Same version as in the build job
+          build-scan-publish: true
+          build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+          build-scan-terms-of-use-agree: "yes"
+
+      - name: Run SonarQube analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |

@@ -30,19 +30,14 @@ jobs:
           gradle -v
           ./gradlew build
 
-      - name: Upgrade Gradle for JDK 17
-        run: |
-          ./gradlew wrapper --gradle-version 5.0 --distribution-type all
-          
+      # - name: Set up JDK 17
+      #   uses: actions/setup-java@v4
+      #   with:
+      #     distribution: 'temurin'
+      #     java-version: '17'
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Run SonarQube analysis with JDK 17
+      - name: Run SonarQube analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ./gradlew sonarqube -Dsonar.organization=gayathrisrividya -Dsonar.projectKey=GayathriSrividya_sunbird-apimanager-util -Dsonar.host.url=https://sonarcloud.io -Dsonar.junit.reportPaths=build/test-results/test/*.xml --stacktrace
+          ./gradlew sonarqube -Dsonar.organization=gayathrisrividya -Dsonar.projectKey=GayathriSrividya_sunbird-apimanager-util -Dsonar.host.url=https://sonarcloud.io -Dsonar.junit.reportPaths=build/test-results/test/*.xml

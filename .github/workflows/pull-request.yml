@@ -37,12 +37,11 @@ jobs:
           java-version: '17'
 
      
-      - name: Run SonarQube analysis
+      - name: Run SonarQube analysis with gradle
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-           mvn -B verify -DskipTests sonar:sonar -Dsonar.projectKey=GayathriSrividya_sunbird-apimanager-util -Dsonar.organization=gayathrisrividya -Dsonar.host.url=https://sonarcloud.io -Dsonar.junit.reportPaths=/home/runner/work/sunbird-apimanager-util/sunbird-apimanager-util/build/test-results/test/*.xml
-
+          ./gradlew sonarqube -Dsonar.organization=gayathrisrividya -Dsonar.projectKey=GayathriSrividya_sunbird-apimanager-util -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_TOKEN} -Dsonar.junit.reportPaths=/home/runner/work/sunbird-apimanager-util/sunbird-apimanager-util/build/test-results/test/*.xml
 
 
 

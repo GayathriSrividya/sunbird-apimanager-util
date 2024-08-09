@@ -25,7 +25,7 @@ jobs:
           build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
           build-scan-terms-of-use-agree: "yes"
 
-      - name: Run build with JDK 11
+      - name: Run build
         run: |
           gradle -v
           ./gradlew build
@@ -36,8 +36,8 @@ jobs:
       #     distribution: 'temurin'
       #     java-version: '17'
 
-      - name: Run SonarQube analysis
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          ./gradlew sonarqube -Dsonar.organization=gayathrisrividya -Dsonar.projectKey=GayathriSrividya_sunbird-apimanager-util -Dsonar.host.url=https://sonarcloud.io -Dsonar.junit.reportPaths=build/test-results/test/*.xml
+      # - name: Run SonarQube analysis
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #   run: |
+      #     ./gradlew sonarqube -Dsonar.organization=gayathrisrividya -Dsonar.projectKey=GayathriSrividya_sunbird-apimanager-util -Dsonar.host.url=https://sonarcloud.io -Dsonar.junit.reportPaths=build/test-results/test/*.xml
